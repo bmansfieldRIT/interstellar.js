@@ -1,0 +1,130 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <input type=button value="E Chord" onClick="play('E')">
+        <input type=button value="A Chord" onClick="play('A')">
+        <input type=button value="B Chord" onClick="play('B')">
+        <input type=button value="C Chord" onClick="play('C')">
+        <input type=button value="Play Song" onClick="playSong()">
+        <script type='text/javascript' src='RIFFWAVE.js'></script>
+        <script>
+            function play(chord){
+
+                var frequency1 = 329.63; // E Note
+                var frequency2 = 440; // A Note
+                var frequency3 = 493.88; // B Note
+                var frequency4 = 523.26; // C Note
+
+                var samples1 = makeSamples(frequency1, 4);
+                var samples2 = makeSamples(frequency2, .5);
+                var samples3 = makeSamples(frequency3, .5);
+                var samples4 = makeSamples(frequency4, .5);
+
+                var audio1 = makeAudio(samples1);
+                var audio2 = makeAudio(samples2);
+                var audio3 = makeAudio(samples3);
+                var audio4 = makeAudio(samples4);
+
+                if (chord == "E") {
+                    audio1.play();
+                } else if (chord == "A") {
+                    audio2.play();
+                } else if (chord == "B"){
+                    audio3.play();
+                } else if (chord == "C"){
+                    audio4.play();
+                }
+            }
+
+            function playSong(){
+                var frequency1 = 329.63; // E Note
+                var frequency2 = 440; // A Note
+                var frequency3 = 493.88; // B Note
+                var frequency4 = 523.26; // C Note
+                var frequency5 = 392 // G Note
+
+
+                var longE = makeSamples(frequency1, 8);
+                var samples1 = makeSamples(frequency1, .25);
+                var samples2 = makeSamples(frequency2, .5);
+                var samples3 = makeSamples(frequency3, .5);
+                var samples4 = makeSamples(frequency4, .5);
+                var samples5 = makeSamples(frequency5, .5);
+
+                var longE = makeAudio(longE)
+                var audio1 = makeAudio(samples1);
+                var audio2 = makeAudio(samples2);
+                var audio3 = makeAudio(samples3);
+                var audio4 = makeAudio(samples4);
+                var audio5 = makeAudio(samples5);
+
+                setTimeout(function() { longE.play();}, 0 );
+
+                setTimeout(function() { audio2.play();}, 0 );
+                setTimeout(function() { audio1.play();}, 250 );
+                setTimeout(function() { audio3.play();}, 500 );
+                setTimeout(function() { audio1.play();}, 750 );
+                setTimeout(function() { audio4.play();}, 1000 );
+                setTimeout(function() { audio1.play();}, 1250 );
+                setTimeout(function() { audio3.play();}, 1500 );
+                setTimeout(function() { audio1.play();}, 1750 );
+                setTimeout(function() { audio2.play();}, 2000 );
+                setTimeout(function() { audio1.play();}, 2250 );
+                setTimeout(function() { audio4.play();}, 2500 );
+                setTimeout(function() { audio1.play();}, 2750 );
+                setTimeout(function() { audio3.play();}, 3000 );
+                setTimeout(function() { audio1.play();}, 3250 );
+                setTimeout(function() { audio2.play();}, 3500 );
+                setTimeout(function() { audio1.play();}, 3750 );
+                setTimeout(function() { audio5.play();}, 4000 );
+                setTimeout(function() { audio1.play();}, 4250 );
+                setTimeout(function() { audio2.play();}, 4500 );
+                setTimeout(function() { audio1.play();}, 4750 );
+                setTimeout(function() { audio3.play();}, 5000 );
+                setTimeout(function() { audio1.play();}, 5250 );
+                setTimeout(function() { audio5.play();}, 5500 );
+                setTimeout(function() { audio1.play();}, 5750 );
+                setTimeout(function() { audio3.play();}, 6000 );
+                setTimeout(function() { audio1.play();}, 6250 );
+                setTimeout(function() { audio2.play();}, 6500 );
+                setTimeout(function() { audio1.play();}, 6750 );
+                setTimeout(function() { audio5.play();}, 7000 );
+                setTimeout(function() { audio1.play();}, 7250 );
+                setTimeout(function() { audio2.play();}, 7500 );
+                setTimeout(function() { audio1.play();}, 7750 );
+            }
+
+            function makeSamples(frequency, lengthOfTone){
+                var samples = []
+                var samples_length = 14400 * lengthOfTone;               // Plays for 1 second (44.1 KHz)
+                for (var i=0; i < samples_length ; i++) { // fills array with samples
+                  var t = i / 14400;               // time from 0 to 1
+                  samples[i] = Math.sin( frequency * 2 * Math.PI * t );
+                }
+                return samples;
+            }
+
+            function makeAudio(samples){
+                // sampleRate = 4410;
+                var wave = new RIFFWAVE();
+                wave.header.sampleRate = 14400;
+                wave.header.numChannels = 1;
+                var audio = new Audio();
+                var samples2 = convert255(samples);
+                wave.Make(samples2);
+                audio.src = wave.dataURI;
+
+                return audio;
+            }
+
+            function convert255(data) {
+                var data_0_255=[];
+                for (var i=0;i<data.length;i++) {
+                    data_0_255[i]=128+Math.round(127*data[i]);
+                }
+                return data_0_255;
+            }
+        </script>
+    </body>
+</html>
