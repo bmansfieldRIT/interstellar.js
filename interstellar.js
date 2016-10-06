@@ -84,6 +84,11 @@ var frequencyDict = [
     ['B6', 1975.533],
 ];
 
+function playNote(note){
+    var audio = makeNoteFromString(note, 1, "");
+    audio.play();
+}
+
 function playDistortedNote(note){
     var audio = makeNoteFromString(note, 1, "clip");
     audio.play();
@@ -134,7 +139,7 @@ function makeClippedNoteSample(frequency, time){
       } else if (samples[i] < neg_clip_thresh){
           samples[i] = neg_clip_thresh;
       }
-      console.log(samples[i]);
+      //console.log(samples[i]);
     }
     return samples;
 }
